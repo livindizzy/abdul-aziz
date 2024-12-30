@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: authentication
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ASKRINDO_AUTHENTICATION
+    username: postgres
+    password: tiger
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+    show-sql: true
+  mvc:
+    path match:
+      matching-strategy: ant-path-matcher
+  jwt:
+    secret-key: "092cc244-aea7-4bf3-a075-1f372baeed71"
+    expiration-time: 300000  #5 Menit
+
+server:
+  port: 8092
