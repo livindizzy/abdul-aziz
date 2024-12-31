@@ -20,14 +20,17 @@ public class MikroRumahkuRequest implements Serializable {
     private String nomorKtp;
     private String email;
     private String nomorTelepon;
-    private LocalDate jangkaWaktuAwal;
-    private LocalDate jangkaWaktuAkhir;
+    private String jangkaWaktuAwal;
+    private String jangkaWaktuAkhir;
     private String informasiKepemilikan;
     private String alamat;
     private String namaAhliWaris;
-    private LocalDate tanggalLahirAhliWaris;
+    private String tanggalLahirAhliWaris;
     private String nomorTeleponAhliWaris;
     private String hubungan;
     private String jenisPaket;
+
+    private String role;
+    private String username;
 
 }

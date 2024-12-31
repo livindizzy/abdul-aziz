@@ -20,6 +20,11 @@ spring:
   jwt:
     secret-key: "092cc244-aea7-4bf3-a075-1f372baeed71"
     expiration-time: 300000  #5 Menit
+  springfox:
+    documentation:
+      swagger:
+        v2:
+          path: /v2/api-docs
 
 server:
   port: 8092

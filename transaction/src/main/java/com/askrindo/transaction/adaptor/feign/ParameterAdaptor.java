@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(contextId = "simpleAuthenticationContext", url = "${spring.feign.client.config.lookup-service.url}")
+@FeignClient(name = "authentication", url = "${spring.feign.client.config.lookup-service.url}")
 public interface ParameterAdaptor {
 
     @GetMapping(value = "/v1/get-look-up-key")

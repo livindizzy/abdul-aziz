@@ -34,12 +34,17 @@ public class MikroRumahKuTransactionService {
     @Transactional
     public ValidationResponse execute(MikroRumahkuRequest input, String kodeProduct) {
         log.info("MikroRumahku transaction started");
+        if (!"MARKETING".equalsIgnoreCase(input.getRole())) throw new BadRequestException("Anda tidak memiliki akses");
+        String newNumber;
         String lastNumber = mikroRumahKuRepository.getLastCertificate();
-        String newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
-
+        if (ObjectUtils.isEmpty(lastNumber)) {
+            newNumber = "00001";
+        } else {
+            newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
+        }
 
         List<String> informasiKepemilikan = getLookUpKeys(Constants.LOOKUP_GORUP.ASMIK_INFO_KEPEMILIKAN.getValue());
-        List<String> hubungan = getLookUpKeys(Constants.LOOKUP_GORUP.ASMIK_INFO_KEPEMILIKAN.getValue());
+        List<String> hubungan = getLookUpKeys(Constants.LOOKUP_GORUP.AHLI_WARIS.getValue());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate inputDate = LocalDate.parse(input.getJangkaWaktuAwal().toString(), dateTimeFormatter);
         LocalDate today = LocalDate.now();
