@@ -23,7 +23,7 @@ jobs:
         projectBaseDir: .
         args: >
           -Dsonar.organization=my-org
-          -Dsonar.projectKey=testing-sonar-scan
+          -Dsonar.projectKey=livindizzy
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
