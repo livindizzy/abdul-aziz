@@ -39,11 +39,11 @@ public class MikroRumahKuTransactionService {
         if (!"MARKETING".equalsIgnoreCase(input.getRole())) throw new BadRequestException("Anda tidak memiliki akses");
         String newNumber;
         String lastNumber = mikroRumahKuRepository.getLastCertificate();
-        if (ObjectUtils.isEmpty(lastNumber)) {
-            newNumber = "00001";
-        } else {
-            newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
-        }
+//        if (ObjectUtils.isEmpty(lastNumber)) {
+//            newNumber = "00001";
+//        } else {
+//            newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
+//        }
 
         List<String> informasiKepemilikan = getLookUpKeys(Constants.LOOKUP_GORUP.ASMIK_INFO_KEPEMILIKAN.getValue());
         List<String> hubungan = getLookUpKeys(Constants.LOOKUP_GORUP.AHLI_WARIS.getValue());
@@ -86,7 +86,7 @@ public class MikroRumahKuTransactionService {
         mikroRumahku.setNilaiPremi(getCalculationOfPremi(input, jumlahHari));
         int year = LocalDateTime.now().getYear();
         String romanDay = toRoman(LocalDateTime.now().getDayOfMonth());
-        mikroRumahku.setNomorSertifikat(newNumber+"/"+kodeProduct+"/"+romanDay+"/"+year);
+//        mikroRumahku.setNomorSertifikat(newNumber+"/"+kodeProduct+"/"+romanDay+"/"+year);
         mikroRumahKuRepository.save(mikroRumahku);
 
         log.info("End of MikroRumahku transaction");
