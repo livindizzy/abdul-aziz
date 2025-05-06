@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - feature/**
+      - feature/askrindo
   workflow_dispatch:
 jobs:
   build:
@@ -18,12 +18,13 @@ jobs:
         java-version: '17'
     - name: Build with Maven
       run: mvn clean install -f transaction/pom.xml
-    - name: SonarQube Scan
+    - name: SonarCloud Scan
       uses: sonarsource/sonarqube-scan-action@master
       with:
         projectBaseDir: .
         args: >
           -Dsonar.projectKey=livindizzy_abdul-aziz
           -Dsonar.organization=livindizzy
+          -Dsonar.java.binaries=transaction/target/classes
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
