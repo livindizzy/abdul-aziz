@@ -43,6 +43,8 @@ public class MikroRumahKuTransactionService {
             newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
         }
 
+//        if (!ObjectUtils.isEmpty(lastNumber))
+
         List<String> informasiKepemilikan = getLookUpKeys(Constants.LOOKUP_GORUP.ASMIK_INFO_KEPEMILIKAN.getValue());
         List<String> hubungan = getLookUpKeys(Constants.LOOKUP_GORUP.AHLI_WARIS.getValue());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -68,9 +70,9 @@ public class MikroRumahKuTransactionService {
           throw new BadRequestException("Informasi kepemilikan tidak valid");
         }
         mikroRumahku.setAlamat(input.getAlamat());
-        mikroRumahku.setNamaAhliWaris(input.getNamaAhliWaris());
-        mikroRumahku.setTanggalLahirAhliWaris(LocalDate.parse(input.getTanggalLahirAhliWaris().toString(), dateTimeFormatter).atStartOfDay());
-        mikroRumahku.setNomorTelepon(input.getNomorTelepon());
+//        mikroRumahku.setNamaAhliWaris(input.getNamaAhliWaris());
+//        mikroRumahku.setTanggalLahirAhliWaris(LocalDate.parse(input.getTanggalLahirAhliWaris().toString(), dateTimeFormatter).atStartOfDay());
+//        mikroRumahku.setNomorTelepon(input.getNomorTelepon());
         if (hubungan.contains(input.getHubungan())) {
             mikroRumahku.setHubungan(input.getHubungan());
         } else {
