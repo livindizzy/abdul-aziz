@@ -10,6 +10,7 @@ import com.askrindo.transaction.util.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,12 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class MikroRumahKuTransactionService {
 
-    private final MikroRumahKuRepository mikroRumahKuRepository;
-    private final ParameterAdaptor parameterAdaptor;
+    @Autowired
+    MikroRumahKuRepository mikroRumahKuRepository;
+    @Autowired
+    ParameterAdaptor parameterAdaptor;
 
     @Transactional
     public ValidationResponse execute(MikroRumahkuRequest input, String kodeProduct) {
@@ -42,8 +44,6 @@ public class MikroRumahKuTransactionService {
         } else {
             newNumber = String.format("%05d", Integer.parseInt(lastNumber.split("/")[0]) + 1);
         }
-
-//        if (!ObjectUtils.isEmpty(lastNumber))
 
         List<String> informasiKepemilikan = getLookUpKeys(Constants.LOOKUP_GORUP.ASMIK_INFO_KEPEMILIKAN.getValue());
         List<String> hubungan = getLookUpKeys(Constants.LOOKUP_GORUP.AHLI_WARIS.getValue());
@@ -70,9 +70,9 @@ public class MikroRumahKuTransactionService {
           throw new BadRequestException("Informasi kepemilikan tidak valid");
         }
         mikroRumahku.setAlamat(input.getAlamat());
-//        mikroRumahku.setNamaAhliWaris(input.getNamaAhliWaris());
-//        mikroRumahku.setTanggalLahirAhliWaris(LocalDate.parse(input.getTanggalLahirAhliWaris().toString(), dateTimeFormatter).atStartOfDay());
-//        mikroRumahku.setNomorTelepon(input.getNomorTelepon());
+        mikroRumahku.setNamaAhliWaris(input.getNamaAhliWaris());
+        mikroRumahku.setTanggalLahirAhliWaris(LocalDate.parse(input.getTanggalLahirAhliWaris().toString(), dateTimeFormatter).atStartOfDay());
+        mikroRumahku.setNomorTelepon(input.getNomorTelepon());
         if (hubungan.contains(input.getHubungan())) {
             mikroRumahku.setHubungan(input.getHubungan());
         } else {
