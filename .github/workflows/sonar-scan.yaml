@@ -1,30 +1,43 @@
-name: CI/CD workflow for Maven Build and Sonar Code scan
+name: CI/CD workflow for Maven Build and Sonar Scan
+
 on:
   push:
     branches:
       - main
       - feature/askrindo
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Build with Maven
-      run: mvn clean install -f transaction/pom.xml
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarqube-scan-action@master
+
+    - name: Cache Maven packages
+      uses: actions/cache@v3
       with:
-        projectBaseDir: .
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build with Maven
+      run: mvn clean verify -f transaction/pom.xml
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarqube-scan-action@v1.2.0
+      with:
+        projectBaseDir: transaction
         args: >
           -Dsonar.projectKey=livindizzy_abdul-aziz
           -Dsonar.organization=livindizzy
-          -Dsonar.java.binaries=transaction/target/classes
+          -Dsonar.java.binaries=target/classes
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
