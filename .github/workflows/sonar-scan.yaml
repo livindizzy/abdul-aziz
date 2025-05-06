@@ -1,4 +1,4 @@
-name: CI/CD workflow for Maven Build and SonarCloud Code scan
+name: CI/CD workflow for Maven Build and SonarCloud Scan
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: mvn clean install -f transaction/pom.xml
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: sonarsource/sonarcloud-github-action@master
         with:
           projectBaseDir: .
           args: >
@@ -33,16 +33,14 @@ jobs:
             -Dsonar.java.binaries=transaction/target/classes
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   quality-gate:
-    name: Check SonarCloud Quality Gate
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     steps:
-      - name: SonarCloud Quality Gate
-        uses: sonarsource/sonarcloud-quality-gate@v1.1.0
-        with:
-          projectKey: livindizzy_abdul-aziz
-          organization: livindizzy
+      - name: SonarCloud Quality Gate Check
+        uses: SonarSource/sonarcloud-quality-gate-action@master
+        timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
