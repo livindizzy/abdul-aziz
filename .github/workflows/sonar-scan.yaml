@@ -40,7 +40,5 @@ jobs:
         projectKey: livindizzy_abdul-aziz
         organization: livindizzy
         wait: true
-        sonar.host.url: https://sonarcloud.io
-        
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
