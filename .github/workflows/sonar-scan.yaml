@@ -25,12 +25,13 @@ jobs:
       run: mvn clean install -f transaction/pom.xml
           
     - name: Build and analyze with SonarCloud
-      run: mvn -f transaction/pom.xml clean verify sonar:sonar \
-            -Dsonar.projectKey=livindizzy_abdul-aziz \
-            -Dsonar.organization=livindizzy \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.java.binaries=transaction/target/classes
+      run: |
+        mvn -f transaction/pom.xml clean verify sonar:sonar \
+        -Dsonar.projectKey=livindizzy_abdul-aziz \
+        -Dsonar.organization=livindizzy \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+        -Dsonar.java.binaries=transaction/target/classes
 
     - name: Check Quality Gate
       uses: SonarSource/sonarcloud-github-action@v2.0.0
