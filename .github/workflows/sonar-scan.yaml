@@ -33,7 +33,7 @@ jobs:
             -Dsonar.java.binaries=transaction/target/classes
 
     - name: Check Quality Gate
-      uses: SonarSource/sonarcloud-quality-gate-action@v1.1.0
+      uses: SonarSource/sonarcloud-github-action@v2.0.0
       with:
         projectKey: livindizzy_abdul-aziz
       env:
