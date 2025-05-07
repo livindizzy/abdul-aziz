@@ -56,6 +56,36 @@ public class MikroRumahKuTransactionService {
             System.out.println("OK");
             System.out.println("OK"); // code duplication
         }
+
+        if (lastNumber.length() > 0) {
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK"); // code duplication
+        }
+
+        if (lastNumber.length() > 0) {
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK"); // code duplication
+        }
+
+        if (lastNumber.length() > 0) {
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK");
+            System.out.println("OK"); // code duplication
+        }
 //        if (ObjectUtils.isEmpty(lastNumber)) {
 //            newNumber = "00001";
 //        } else {
